@@ -5,7 +5,39 @@
 
 #define BUFFER_SIZE 4096
 
-// From now it just prints the file
+int run_command(char* args[]);
+void get();
+void set(const char* key, const char* value);
+
+int main(int argc, char* argv[]) {
+    if (argc == 1) {
+        printf("Usage: <command> <params>\n");
+        printf("Examples:\n - set foo bar\n");
+        printf(" - get foo\n");
+        return 1;
+    }
+
+    char* input = argv[1];
+    char** tokens = str_split(input, ' ');
+
+    int res = run_command(argv);
+    return res;
+}
+
+int run_command(char* args[]) {
+    char* input = args[1];
+    if (strcmp(input, "get") == 0) {
+        get();
+    } else if (strcmp(input, "set") == 0) {
+        set(args[2], args[3]);
+    } else {
+        printf("\nError");
+        return 1;
+    }
+
+    return 0;
+}
+
 void get() {
     FILE *file;
     char line[BUFFER_SIZE];
@@ -38,8 +70,3 @@ void set(const char* key, const char* value) {
     fclose(file);
 }
 
-int main() {
-  // set("key", "val");
-  get();
-  return 0;
-}
