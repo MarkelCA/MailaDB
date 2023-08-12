@@ -1,8 +1,0 @@
-key;val
-key;val
-key;val
-key;val
-key;value
-key;value
-fizz;buzz
-a;b
