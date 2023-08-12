@@ -43,22 +43,6 @@ int run_command(char* args[]) {
     return 0;
 }
 
-char* create_slice(const char* str, int start, int length) {
-    if (str == NULL || start < 0 || length < 0 || start + length > strlen(str)) {
-        return NULL; // Invalid input
-    }
-    
-    char* slice = (char*)malloc(length + 1); // +1 for null terminator
-    if (slice == NULL) {
-        return NULL; // Memory allocation failed
-    }
-    
-    strncpy(slice, str + start, length);
-    slice[length] = '\0'; // Null-terminate the slice
-    
-    return slice;
-}
-
 
 void get(char* key) {
     assert(key != NULL);
@@ -102,14 +86,6 @@ void get(char* key) {
 
     free(val_data);
     fclose(file);
-}
-
-void string_to_bytes(const char *input_string, unsigned char *output_bytes) {
-    size_t length = strlen(input_string);
-
-    for (size_t i = 0; i < length; ++i) {
-        output_bytes[i] = (unsigned char)input_string[i];
-    }
 }
 
 void set(const char* key, const char* value) {

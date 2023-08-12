@@ -13,8 +13,8 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "files/Read and Write.md",
-                "mode": "preview",
+                "file": "databases/Bash Database.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "files/Read and Write.md",
+                "file": "databases/Bash Database.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "files/Read and Write.md",
+                "file": "databases/Bash Database.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "files/Read and Write.md"
+                "file": "databases/Bash Database.md"
               }
             }
           }
@@ -148,6 +148,11 @@
   },
   "active": "a9575b61172292e6",
   "lastOpenFiles": [
+    "C/files/Read and Write.md",
+    "Bash Database.md",
+    "databases/Bash Database.md",
+    "databases",
+    "4913",
     "files/Read and Write.md",
     "files/Read.md",
     "files",
