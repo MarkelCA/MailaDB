@@ -7,8 +7,8 @@ all: compile run
 
 compile: $(BIN_DIR)/main
 
-$(BIN_DIR)/main: $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/utils.h
-	$(CC) $(CFLAGS) -o $@ $(SRC_DIR)/main.c $(SRC_DIR)/utils.c
+$(BIN_DIR)/main: $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/utils.h $(SRC_DIR)/storage.c $(SRC_DIR)/storage.h
+	$(CC) $(CFLAGS) -o $@ $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/storage.c
 
 run:
 	$(BIN_DIR)/main

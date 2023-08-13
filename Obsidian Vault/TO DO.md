@@ -1,0 +1,11 @@
+- [ ] Optimize stored space. 
+    - Is always stored 4 bytes for the key lenght, even if there aren't used. [[optimizations/Binary Encoding|Binary Encoding]]]
+- [ ] Add a network adapter.
+    - Currently the only way to use the database it's through a cli. This isn't very useful.
+- [ ] Add indexing.
+    - Add an indexing algorithm. For example:
+        - Byte-offset stored in memory for every key
+        - LSM-Tree
+        - B+ Tree
+- [ ] Add log compaction
+- [ ] Add users & permissions
