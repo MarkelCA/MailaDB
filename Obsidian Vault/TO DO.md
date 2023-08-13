@@ -9,3 +9,4 @@
         - B+ Tree
 - [ ] Add log compaction
 - [ ] Add users & permissions
+- [ ] Might be interesting to use a documentation generator as [Docusaurus](https://docusaurus.io/)

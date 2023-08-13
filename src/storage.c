@@ -6,26 +6,26 @@
 #include <sys/types.h>
 
 #define BUFFER_SIZE 4096
-#define DATABASE_PATH "./data/out.db"
+#define DATABASE_PATH "/home/markel/estudio/databases/MailaDB/data/out.db"
 
 void get(char* key) {
     assert(key != NULL);
-    FILE *file;
+    FILE *file = NULL;
     char line[BUFFER_SIZE];
 
     file = fopen(DATABASE_PATH, "r");
     if (file == NULL) {
         perror("Failed to open the file");
     }
-    char* key_data;
-    char* val_data;
+    char* key_data = NULL;
+    char* val_data = NULL;
 
     // We iterate through all the file
     while (!feof(file)) {
-        u_int8_t current_key_length;
-        char* current_key_data;
-        uint current_val_lenght;
-        char* current_val_data;
+        u_int8_t current_key_length = 0;
+        char* current_key_data  = NULL;
+        uint current_val_lenght = 0;
+        char* current_val_data  = NULL;
 
         // We read the key
         fread(&current_key_length, sizeof(u_int8_t), 1, file);
@@ -44,10 +44,13 @@ void get(char* key) {
         }
     }
 
-    printf("%s -> %s\n", key_data, val_data);
+    if (key_data != NULL && val_data != NULL) {
+        printf("%s -> %s\n", key_data, val_data);
+    }
 
     free(key_data);
     free(val_data);
+
     fclose(file);
 }
 
