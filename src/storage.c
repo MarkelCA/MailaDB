@@ -8,25 +8,26 @@
 #define BUFFER_SIZE 4096
 #define DATABASE_PATH "/home/markel/estudio/databases/MailaDB/data/out.db"
 
-void get(char* key) {
+char* get(char* key) {
     assert(key != NULL);
     FILE *file = NULL;
     char line[BUFFER_SIZE];
+    char* result = NULL;
 
     file = fopen(DATABASE_PATH, "r");
     if (file == NULL) {
-        perror("Failed to open the file");
-        return;
+        perror("Failed to open the file.");
+        return result;
     }
-    char* key_data = NULL;
     char* val_data = NULL;
+
+    char* current_key_data  = NULL;
+    char* current_val_data  = NULL;
 
     // We iterate through all the file
     while (!feof(file)) {
         u_int8_t current_key_length = 0;
-        char* current_key_data  = NULL;
         u_int16_t current_val_lenght = 0;
-        char* current_val_data  = NULL;
 
         // We read the key
         fread(&current_key_length, sizeof(u_int8_t), 1, file);
@@ -40,19 +41,26 @@ void get(char* key) {
 
         // If we find the key we store it along with the value
         if(strcmp(key, current_key_data) == 0) {
-            key_data   = current_key_data;
-            val_data   = current_val_data;
+            val_data    = current_val_data;
         }
     }
+    // We deallocate the temporal variables
+    free(current_key_data);
 
-    if (key_data != NULL && val_data != NULL) {
-        printf("%s -> %s\n", key_data, val_data);
+    // We check that the current value it's not the last one to avoid deallocating
+    // the returned result pointer.
+    if(current_val_data != val_data) {
+        free(current_val_data);
     }
 
-    free(key_data);
-    free(val_data);
+    if (val_data != NULL) {
+        result = (char*)malloc( sizeof(char) * strlen(val_data) );
+        result = val_data;
+    }
 
     fclose(file);
+
+    return result;
 }
 
 void set(const char* key, const char* value) {
