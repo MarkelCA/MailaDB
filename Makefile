@@ -3,15 +3,23 @@ CFLAGS = -Wall -Wextra
 SRC_DIR = src
 BIN_DIR = ./bin
 
-all: compile run
+.PHONY: all compile-cli compile-main clean run-cli
 
-compile: $(BIN_DIR)/main
+all: compile-main compile-cli
 
-$(BIN_DIR)/main: $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/utils.h $(SRC_DIR)/storage.c $(SRC_DIR)/storage.h
+compile-main: $(BIN_DIR)/main
+
+$(BIN_DIR)/main: $(SRC_DIR)/main.c $(SRC_DIR)/storage.c $(SRC_DIR)/storage.h
 	$(CC) $(CFLAGS) -o $@ $(SRC_DIR)/main.c $(SRC_DIR)/utils.c $(SRC_DIR)/storage.c
 
-run:
-	$(BIN_DIR)/main
+compile-cli: $(BIN_DIR)/cli
+
+$(BIN_DIR)/cli: $(SRC_DIR)/cli.c $(SRC_DIR)/utils.c $(SRC_DIR)/utils.h $(SRC_DIR)/storage.c $(SRC_DIR)/storage.h
+	$(CC) $(CFLAGS) -o $@ $(SRC_DIR)/cli.c $(SRC_DIR)/utils.c $(SRC_DIR)/storage.c
 
 clean:
 	rm -f $(BIN_DIR)/main
+
+run-cli: compile-cli
+	$(BIN_DIR)/cli $(cmd)
+

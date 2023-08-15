@@ -16,6 +16,7 @@ void get(char* key) {
     file = fopen(DATABASE_PATH, "r");
     if (file == NULL) {
         perror("Failed to open the file");
+        return;
     }
     char* key_data = NULL;
     char* val_data = NULL;
@@ -24,7 +25,7 @@ void get(char* key) {
     while (!feof(file)) {
         u_int8_t current_key_length = 0;
         char* current_key_data  = NULL;
-        uint current_val_lenght = 0;
+        u_int16_t current_val_lenght = 0;
         char* current_val_data  = NULL;
 
         // We read the key
@@ -33,7 +34,7 @@ void get(char* key) {
         fread(current_key_data, sizeof(char), current_key_length, file);
 
         // We read the value
-        fread(&current_val_lenght, sizeof(uint), 1, file);
+        fread(&current_val_lenght, sizeof(u_int16_t), 1, file);
         current_val_data = (char*)malloc(sizeof(char)*current_val_lenght);
         fread(current_val_data, sizeof(char), current_val_lenght, file);
 
@@ -64,14 +65,14 @@ void set(const char* key, const char* value) {
     }
 
     u_int8_t key_length   = strlen(key);    // Max key lenght in bytes = 1 (key data: ~255 B)
-    uint val_lenght  = strlen(value); //  Max val lenght in bytes = 2 (val data: ~65 KB)
+    u_int16_t val_lenght  = strlen(value); //  Max val lenght in bytes = 2 (val data: ~65 KB)
 
     // Write key length and data
     fwrite(&key_length, sizeof(u_int8_t), 1, file);
     fwrite(key, sizeof(char), key_length, file);
 
     // Write value length and data
-    fwrite(&val_lenght, sizeof(uint), 1, file);
+    fwrite(&val_lenght, sizeof(u_int16_t), 1, file);
     fwrite(value, sizeof(char), val_lenght, file);
 
     fclose(file);
