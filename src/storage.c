@@ -6,7 +6,7 @@
 #include <sys/types.h>
 
 #define BUFFER_SIZE 4096
-#define DATABASE_PATH "/home/markel/estudio/databases/MailaDB/data/out.db"
+#define DATABASE_PATH "../data/out.db"
 
 char* get(char* key) {
     assert(key != NULL);

@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "./controller.h"
 
 
-int run_command(char* args[]);
+char* run_command(char* args[]);
 
 int main(int argc, char** argv) {
     if (argc == 1) {
@@ -13,7 +14,10 @@ int main(int argc, char** argv) {
     }
 
     // We skip the first param (file name) with +1 to the pointer
-    return run_command(argv + 1); 
+    char* result = run_command(argv + 1);
+    printf("%s", result) ;
+    free(result);
+    return 0;
 }
 
 

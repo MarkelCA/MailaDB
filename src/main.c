@@ -6,6 +6,8 @@
 #include "./utils.h"
 #include "./controller.h"
 
+#include <stdio.h>
+
 int main() {
     // Create a socket
     int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -56,24 +58,33 @@ int main() {
             break;
         }
 
-        // Find the position of the newline character
-        size_t newlinePos = strcspn(buffer, "\n");
-
-        // Remove the newline character, if present
-        if (newlinePos < bytesRead) {
-            buffer[newlinePos] = '\0';
+        // Delete the \n char at the end
+        size_t lineBreakPos = strcspn(buffer, "\n");
+        if (lineBreakPos < bytesRead) {
+            buffer[lineBreakPos] = '\0';
         }
 
-        printf("Received: %s", buffer);
+        // Delete the \r char at the end
+        size_t carriagePos = strcspn(buffer, "\r");
+        if (carriagePos < bytesRead) {
+            buffer[carriagePos] = '\0';
+        }
+
         char** tokens = str_split(buffer, ' ');
-        printf("Token 0: %s", tokens[0]);
-        printf("here");
-        printf("%i", run_command(tokens));
-        printf("finishid run command");
-        free(tokens);
+
+        char* result = run_command(tokens);
+        printf("result:%s\n", result);
+        char* final_result = (char*)malloc(sizeof(char)* (strlen(result) + 1) );
+        final_result = result;
+        strcat(final_result, "\n");
 
         // Echo back the message
-        send(clientSocket, buffer, bytesRead, 0);
+        send(clientSocket, result, bytesRead, 0);
+
+        free(tokens);
+        free(result);
+        tokens = NULL;
+        result = NULL;
     }
 
     // Close the sockets
@@ -82,4 +93,3 @@ int main() {
 
     return 0;
 }
-
