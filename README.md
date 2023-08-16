@@ -2,5 +2,5 @@ This is a personal project meant to learn about databases. To do so I'm trying t
 
 ---
 
-# MailaDB
-MailaDB it's a simple key-value store. To create it I'm being inspired from other key value stores like Google's [LevelDB](https://github.com/google/leveldb/tree/main) or [Bitcast](https://github.com/basho/bitcask).
+# SillyDB
+SillyDB it's a simple key-value store. To create it I'm being inspired from other key value stores like Google's [LevelDB](https://github.com/google/leveldb/tree/main) or [Bitcast](https://github.com/basho/bitcask).
