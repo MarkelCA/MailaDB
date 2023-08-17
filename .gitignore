@@ -1,2 +1,4 @@
 .idea
+.obsidian
 cmake-build-debug/
+build
