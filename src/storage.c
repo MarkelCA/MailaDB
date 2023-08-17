@@ -6,7 +6,7 @@
 #include <sys/types.h>
 
 #define BUFFER_SIZE 4096
-#define DATABASE_PATH "../data/out.db"
+#define DATABASE_PATH "/home/markel/databases/SillyDB/data/out.db"
 
 char* get(char* key) {
     assert(key != NULL);

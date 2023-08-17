@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
     // We skip the first param (file name) with +1 to the pointer
     char* result = run_command(argv + 1);
     printf("%s", result) ;
-    free(result);
+     free(result);
     return 0;
 }
 
