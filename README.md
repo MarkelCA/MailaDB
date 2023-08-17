@@ -1,6 +1,8 @@
 SillyDB it's a simple key-value store. To create it I'm being inspired from other key value stores like Google's [LevelDB](https://github.com/google/leveldb/tree/main) or [Bitcast](https://github.com/basho/bitcask).
 
-This is a personal project meant to learn about databases. To do so I'm trying to create my own one, following the book *"Designing Data-Intensive Applications"* as a guideline from Martin Kleppmann. 
+This is a personal project meant to learn about databases. To do so I'm trying to create my own one, following the book *"Designing Data-Intensive Applications"* as a guideline from Martin Kleppmann.
+
+I'm also learning C so that's the reason behind the language choice. Maybe I'll make implementations in C++ and Rust in the future.
 
 # Build
 
