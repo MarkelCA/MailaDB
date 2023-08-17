@@ -21,7 +21,7 @@ cmake --build ./build
 ```
 
 ## CLion
-Compiling it from the CLion IDE has some advantages, one of them being the debugger capabilities that the IDE enables.
+Compiling it from the [CLion IDE](https://www.jetbrains.com/clion/) has some advantages, one of them being the debugger capabilities that the IDE enables.
 
 1. Create the `cmake-build-debug` directory at the root folder.
 ```bash
