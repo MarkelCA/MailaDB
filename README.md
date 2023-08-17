@@ -8,16 +8,24 @@ I'm also learning C so that's the reason behind the language choice. Maybe I'll 
 
 ## Using [CMake](https://cmake.org/)
 
-Build it from the terminal using the cmake tool.
+Build it from the terminal using the `cmake` tool.
 
-1. Create build folder
+1. Clone the project
+```bash
+git clone https://github.com/MarkelCA/SillyDB.git
+cd SillyDB
+```
+2. Create build folder
+
+From the root folder:
+
 ```bash
 mkdir build
 cd build
 cmake .. # Uses the CMakeLists.txt file from the parent folder
 ```
 
-2. Compile the project using the created build folder
+3. Compile the project using the created build folder
 ```bash
 cmake --build ./build
 ```
@@ -25,9 +33,18 @@ cmake --build ./build
 ## CLion
 Compiling it from the [CLion IDE](https://www.jetbrains.com/clion/) has some advantages, one of them being the debugger capabilities that the IDE enables.
 
-1. Create the `cmake-build-debug` directory at the root folder.
+1. Clone the repo
+```bash
+git clone https://github.com/MarkelCA/SillyDB.git
+cd SillyDB
+```
+
+2. Create the `cmake-build-debug` directory at the root folder.
+
+From the root folder:
+
 ```bash
 mkdir cmake-build-debug
 ```
 
-2. Run the CMakeLists.txt file from the IDE using the *Debug CMake* button.
+2. Run the CMakeLists.txt file from the IDE using the `Debug CMake` button.
