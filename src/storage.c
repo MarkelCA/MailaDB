@@ -12,6 +12,7 @@ char* get(char* key) {
     assert(key != NULL);
     FILE *file = NULL;
     char line[BUFFER_SIZE];
+    memset(&line,0,sizeof (line));
     char* result = NULL;
 
     file = fopen(DATABASE_PATH, "r");
@@ -31,14 +32,17 @@ char* get(char* key) {
 
         // We read the key
         fread(&current_key_length, sizeof(u_int8_t), 1, file);
-        current_key_data = (char*)malloc(sizeof(char)*current_key_length);
+        current_key_data = (char*)malloc(sizeof(char)*current_key_length + 1); // +1 to append a null pointer
+        memset(current_key_data, 0, sizeof(current_key_length));
         fread(current_key_data, sizeof(char), current_key_length, file);
+        current_key_data[current_key_length] = '\0'; // We add the null terminator to avoid storing junk bytes
 
         // We read the value
         fread(&current_val_lenght, sizeof(u_int16_t), 1, file);
-        current_val_data = (char*)malloc(sizeof(char)*current_val_lenght);
+        current_val_data = (char*)malloc(sizeof(char)*current_val_lenght + 1);
+        memset(current_val_data, 0, sizeof(current_val_lenght));
         fread(current_val_data, sizeof(char), current_val_lenght, file);
-
+        current_val_data[current_val_lenght] = '\0'; // We add the null terminator to avoid storing junk bytes
         // If we find the key we store it along with the value
         if(strcmp(key, current_key_data) == 0) {
             val_data    = current_val_data;

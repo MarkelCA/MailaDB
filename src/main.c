@@ -16,6 +16,13 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
+    // Set the SO_REUSEADDR socket option
+    int reuse = 1;
+    if (setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(int)) == -1) {
+        perror("Setting SO_REUSEADDR failed");
+        exit(EXIT_FAILURE);
+    }
+
     // Define the server address
     struct sockaddr_in serverAddr;
     serverAddr.sin_family = AF_INET;
@@ -51,6 +58,7 @@ int main() {
 
     // Receive and send messages
     char buffer[1024];
+    memset(&buffer, 0, sizeof(buffer));
     while (1) {
         ssize_t bytesRead = recv(clientSocket, buffer, sizeof(buffer), 0);
         if (bytesRead <= 0) {
