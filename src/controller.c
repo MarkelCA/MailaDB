@@ -6,14 +6,22 @@
 
 char* run_command(char* args[]) {
     char* input = args[0];
+    char* result;
     if (strcmp(input, "get") == 0) {
-        char* result = get(args[1]);
-        return result;
+        result = get(args[1]);
     } else if (strcmp(input, "set") == 0) {
         set(args[1], args[2]);
-        return "Done";
+        char* str_done = "Done";
+        result = (char*) malloc(sizeof(char) * strlen(str_done));
+        memset(result,0, strlen(str_done));
+        strcat(result, str_done);
     } else {
-        return "Command not valid";
+
+        char* command_not_valid = "Command not valid";
+        result = (char*) malloc(sizeof(char) * strlen(command_not_valid));
+        memset(result,0, strlen(command_not_valid));
+        strcat(result, command_not_valid);
     }
+    return result;
 }
 

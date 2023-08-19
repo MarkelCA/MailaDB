@@ -59,10 +59,11 @@ char* get(char* key) {
         result = (char*)malloc( sizeof(char) * strlen(val_data) );
         result = val_data;
     } else {
-        char* not_found_str = "(nil)";
-        result = (char*) malloc((sizeof(char)) * strlen(not_found_str));
-        memset(result, 0, strlen(not_found_str));
-        strcpy(result, not_found_str);
+//        char* not_found_str = "(nil)";
+//        result = (char*) malloc((sizeof(char)) * strlen(not_found_str));
+//        memset(result, 0, strlen(not_found_str));
+//        strcpy(result, not_found_str);
+        result = NULL;
     }
 
     fclose(file);

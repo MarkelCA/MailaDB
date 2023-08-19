@@ -79,19 +79,26 @@ int main() {
         }
 
         char** tokens = str_split(buffer, ' ');
-
+        char* final_result;
+        size_t value_lenght;
         char* result = run_command(tokens);
-        printf("result:%s\n", result);
-        size_t value_lenght = strlen(result) + 4; // +4 because of the \n and \0 chars and the quotes
-        char* final_result = (char*)malloc(sizeof(char)* (value_lenght) );
 
-        memset(final_result, 0, value_lenght);
+        if(result != NULL) {
+            value_lenght = strlen(result) + 4; // +4 because of the \n and \0 chars and the quotes
+            final_result = (char*)malloc(sizeof(char)* (value_lenght) );
+            memset(final_result, 0, value_lenght);
 
-        strcpy(final_result, "\"");
-        strcat(final_result, result);
-        strcat(final_result, "\"");
-        strcat(final_result, "\n\0");
-
+            strcpy(final_result, "\"");
+            strcat(final_result, result);
+            strcat(final_result, "\"");
+            strcat(final_result, "\n\0");
+        } else {
+            char* str_nil = "(nil)\n\0";
+            value_lenght = strlen(str_nil);
+            final_result = (char*)malloc(sizeof(char)* (value_lenght) );
+            memset(final_result, 0, value_lenght);
+            strcat(final_result, str_nil);
+        }
 
         // Echo back the message
         send(clientSocket, final_result, value_lenght, 0);
