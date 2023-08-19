@@ -82,12 +82,19 @@ int main() {
 
         char* result = run_command(tokens);
         printf("result:%s\n", result);
-        char* final_result = (char*)malloc(sizeof(char)* (strlen(result) + 1) );
-        final_result = result;
-        strcat(final_result, "\n");
+        size_t value_lenght = strlen(result) + 4; // +4 because of the \n and \0 chars and the quotes
+        char* final_result = (char*)malloc(sizeof(char)* (value_lenght) );
+
+        memset(final_result, 0, value_lenght);
+
+        strcpy(final_result, "\"");
+        strcat(final_result, result);
+        strcat(final_result, "\"");
+        strcat(final_result, "\n\0");
+
 
         // Echo back the message
-        send(clientSocket, result, bytesRead, 0);
+        send(clientSocket, final_result, value_lenght, 0);
 
         free(tokens);
         free(result);
