@@ -59,10 +59,6 @@ char* get(char* key) {
         result = (char*)malloc( sizeof(char) * strlen(val_data) );
         result = val_data;
     } else {
-//        char* not_found_str = "(nil)";
-//        result = (char*) malloc((sizeof(char)) * strlen(not_found_str));
-//        memset(result, 0, strlen(not_found_str));
-//        strcpy(result, not_found_str);
         result = NULL;
     }
 
@@ -92,4 +88,8 @@ void set(const char* key, const char* value) {
     fwrite(value, sizeof(char), val_lenght, file);
 
     fclose(file);
+}
+
+void del(const char* key) {
+    printf("%c", 2);
 }

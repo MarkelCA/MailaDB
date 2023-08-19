@@ -1,80 +1,30 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
-#include <unistd.h>
-#include <arpa/inet.h>
+#include <sys/types.h>
 #include "./utils.h"
 #include "./controller.h"
+#include "./socket.h"
 
-#include <stdio.h>
 
 int main() {
-    // Create a socket
-    int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (serverSocket == -1) {
-        perror("Socket creation failed");
-        exit(EXIT_FAILURE);
-    }
 
-    // Set the SO_REUSEADDR socket option
-    int reuse = 1;
-    if (setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(int)) == -1) {
-        perror("Setting SO_REUSEADDR failed");
-        exit(EXIT_FAILURE);
-    }
-
-    // Define the server address
-    struct sockaddr_in serverAddr;
-    serverAddr.sin_family = AF_INET;
-    serverAddr.sin_addr.s_addr = INADDR_ANY;
-    serverAddr.sin_port = htons(8080); // Port number
-
-    // Bind the socket to the address
-    if (bind(serverSocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) == -1) {
-        perror("Binding failed");
-        exit(EXIT_FAILURE);
-    }
-
-    // Listen for incoming connections
-    if (listen(serverSocket, 5) == -1) {
-        perror("Listening failed");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("Server listening on port 8080...\n");
-
-    // Accept a connection
-    int clientSocket;
-    struct sockaddr_in clientAddr;
-    socklen_t addrLen = sizeof(clientAddr);
-
-    clientSocket = accept(serverSocket, (struct sockaddr *)&clientAddr, &addrLen);
-    if (clientSocket == -1) {
-        perror("Accepting connection failed");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("Connection established with client.\n");
+    // Init the socket
+    int socket = init_socket();
 
     // Receive and send messages
     char buffer[1024];
     memset(&buffer, 0, sizeof(buffer));
     while (1) {
-        ssize_t bytesRead = recv(clientSocket, buffer, sizeof(buffer), 0);
-        if (bytesRead <= 0) {
+        ssize_t bytes_read = read_message(socket, buffer, 0);
+        if (bytes_read <= 0) {
             perror("Connection closed or error");
             break;
         }
 
-        // Delete the \n char at the end
-        size_t lineBreakPos = strcspn(buffer, "\n");
-        if (lineBreakPos < bytesRead) {
-            buffer[lineBreakPos] = '\0';
-        }
-
         // Delete the \r char at the end
         size_t carriagePos = strcspn(buffer, "\r");
-        if (carriagePos < bytesRead) {
+        if (carriagePos < bytes_read) {
             buffer[carriagePos] = '\0';
         }
 
@@ -101,7 +51,7 @@ int main() {
         }
 
         // Echo back the message
-        send(clientSocket, final_result, value_lenght, 0);
+        send_message(socket,final_result, value_lenght, 0);
 
         free(tokens);
         free(result);
@@ -109,9 +59,7 @@ int main() {
         result = NULL;
     }
 
-    // Close the sockets
-    close(clientSocket);
-    close(serverSocket);
+    close_socket(socket);
 
     return 0;
 }

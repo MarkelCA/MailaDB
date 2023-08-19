@@ -11,7 +11,7 @@ char* run_command(char* args[]) {
         result = get(args[1]);
     } else if (strcmp(input, "set") == 0) {
         set(args[1], args[2]);
-        char* str_done = "Done";
+        char* str_done = "OK";
         result = (char*) malloc(sizeof(char) * strlen(str_done));
         memset(result,0, strlen(str_done));
         strcat(result, str_done);
