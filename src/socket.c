@@ -1,10 +1,8 @@
 #include "socket.h"
 #include <unistd.h>
 #include <arpa/inet.h>
-#include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <sys/types.h>
 
 int init_socket() {
 
@@ -42,19 +40,19 @@ int init_socket() {
     printf("Server listening on port 8080...\n");
 
     // Accept a connection
-    int clientSocket;
+    int socket;
     struct sockaddr_in clientAddr;
     socklen_t addrLen = sizeof(clientAddr);
 
-    clientSocket = accept(serverSocket, (struct sockaddr *)&clientAddr, &addrLen);
-    if (clientSocket == -1) {
+    socket = accept(serverSocket, (struct sockaddr *)&clientAddr, &addrLen);
+    if (socket == -1) {
         perror("Accepting connection failed");
         exit(EXIT_FAILURE);
     }
 
     printf("Connection established with client.\n");
 
-    return clientSocket;
+    return socket;
 }
 
 ssize_t read_message(int socket, char* buffer, int flags) {

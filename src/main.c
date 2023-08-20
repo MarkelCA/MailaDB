@@ -5,6 +5,8 @@
 #include "./utils.h"
 #include "./controller.h"
 #include "./socket.h"
+#include <arpa/inet.h>
+
 
 
 int main() {
@@ -16,7 +18,9 @@ int main() {
     char buffer[1024];
     memset(&buffer, 0, sizeof(buffer));
     while (1) {
-        ssize_t bytes_read = read_message(socket, buffer, 0);
+        //ssize_t bytes_read =
+        // read_message(bytes_read, socket, buffer, 0);
+        ssize_t  bytes_read = recv(socket, buffer, sizeof(buffer), 0);
         if (bytes_read <= 0) {
             perror("Connection closed or error");
             break;
