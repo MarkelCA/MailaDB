@@ -5,7 +5,7 @@
 #include <sys/types.h>
 
 int init_socket();
-ssize_t read_message(int socket, char* buffer, int flags);
+ssize_t read_message(int socket, char* buffer, size_t size, int flags);
 void send_message(int socket, char* message, size_t size, int flags);
 void close_socket(int socket);
 

@@ -1,26 +1,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/types.h>
 #include "./utils.h"
 #include "./controller.h"
 #include "./socket.h"
-#include <arpa/inet.h>
-
-
 
 int main() {
-
     // Init the socket
     int socket = init_socket();
 
     // Receive and send messages
-    char buffer[1024];
+    char buffer[1024]; // Has to change given the maximum value lenght (65KB)
     memset(&buffer, 0, sizeof(buffer));
     while (1) {
-        //ssize_t bytes_read =
-        // read_message(bytes_read, socket, buffer, 0);
-        ssize_t  bytes_read = recv(socket, buffer, sizeof(buffer), 0);
+        ssize_t bytes_read = read_message(socket, buffer, sizeof(buffer), 0);
         if (bytes_read <= 0) {
             perror("Connection closed or error");
             break;

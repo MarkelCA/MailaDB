@@ -1,6 +1,6 @@
 - [ ] Delete function (tombstones)
 - [ ] `list` command
-- [ ] cli like `mysql`
+- [ ] cli tool like `mysql` instead of using `telnet`
 - [ ] Use a thread for each request
 - [ ] Implement a type system like Redis
 - [X] Optimize stored space. 
@@ -17,3 +17,4 @@
 - [ ] Might be interesting to use a documentation generator as [Docusaurus](https://docusaurus.io/)
 - [ ] Take inspiration from the Redis cli(https://try.redis.io/)
 - [ ] change the `Command not valid` output to remove quotes
+- [ ] Abstract the storage format and the indexing algorithm to add flexibility

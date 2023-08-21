@@ -23,7 +23,7 @@ int init_socket() {
     // Define the server address
     struct sockaddr_in serverAddr;
     serverAddr.sin_addr.s_addr = INADDR_ANY; // Accept connections from the host.
-    serverAddr.sin_port = htons(8080); // Port number
+    serverAddr.sin_port = htons(8080);       // Port number
 
     // Bind the socket to the address
     if (bind(serverSocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) == -1) {
@@ -41,10 +41,10 @@ int init_socket() {
 
     // Accept a connection
     int socket;
-    struct sockaddr_in clientAddr;
-    socklen_t addrLen = sizeof(clientAddr);
+    struct sockaddr_in client_addr;
+    socklen_t addr_len = sizeof(client_addr);
 
-    socket = accept(serverSocket, (struct sockaddr *)&clientAddr, &addrLen);
+    socket = accept(serverSocket, (struct sockaddr *)&client_addr, &addr_len);
     if (socket == -1) {
         perror("Accepting connection failed");
         exit(EXIT_FAILURE);
@@ -55,8 +55,8 @@ int init_socket() {
     return socket;
 }
 
-ssize_t read_message(int socket, char* buffer, int flags) {
-    return recv(socket, buffer, sizeof(buffer), 0);
+ssize_t read_message(int socket, char* buffer, size_t size, int flags) {
+    return recv(socket, buffer, size, 0);
 }
 
 void send_message(int socket, char* message, size_t size, int flags) {
