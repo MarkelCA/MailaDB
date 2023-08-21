@@ -32,8 +32,7 @@ int main() {
 
         if(result != NULL) {
             value_lenght = strlen(result) + 4; // +4 because of the \n and \0 chars and the quotes
-            final_result = (char*)malloc(sizeof(char)* (value_lenght) );
-            memset(final_result, 0, value_lenght);
+            final_result = (char*)calloc(value_lenght, sizeof(char) );
 
             strcpy(final_result, "\"");
             strcat(final_result, result);
@@ -42,8 +41,7 @@ int main() {
         } else {
             char* str_nil = "(nil)\n\0";
             value_lenght = strlen(str_nil);
-            final_result = (char*)malloc(sizeof(char)* (value_lenght) );
-            memset(final_result, 0, value_lenght);
+            final_result = (char*)calloc(value_lenght,sizeof(char));
             strcat(final_result, str_nil);
         }
 

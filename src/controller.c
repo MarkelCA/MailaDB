@@ -1,7 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
-#include "./utils.h"
 #include <stdio.h>
+#include "./utils.h"
 #include "./storage.h"
 
 char* run_command(char* args[]) {
@@ -12,14 +12,20 @@ char* run_command(char* args[]) {
     } else if (strcmp(input, "set") == 0) {
         set(args[1], args[2]);
         char* str_done = "OK";
-        result = (char*) malloc(sizeof(char) * strlen(str_done));
-        memset(result,0, strlen(str_done));
+        result = (char*) calloc(strlen(str_done), sizeof(char));
+        strcat(result, str_done);
+    } else if (strcmp(input, "del") == 0) {
+        char* del_str = "Not implemented yet!";
+        result = (char*) calloc(strlen(del_str), sizeof(char));
+        strcat(result, del_str);
+    } else if (strcmp(input, "list") == 0) {
+        char* str_done = "(Printed on the server)";
+        list();
+        result = (char*) calloc(strlen(str_done), sizeof(char));
         strcat(result, str_done);
     } else {
-
         char* command_not_valid = "Command not valid";
-        result = (char*) malloc(sizeof(char) * strlen(command_not_valid));
-        memset(result,0, strlen(command_not_valid));
+        result = (char*)calloc(strlen(command_not_valid), sizeof(char));
         strcat(result, command_not_valid);
     }
     return result;
