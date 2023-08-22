@@ -48,3 +48,37 @@ mkdir cmake-build-debug
 ```
 
 2. Run the CMakeLists.txt file from the IDE using the `Debug CMake` button.
+
+# Run
+1. Start the server
+```bash
+./bin/start
+```
+
+2. Connect to the database
+```bash
+telnet localhost 8080
+```
+
+# Examples
+This is a telnet prompt with a bunch of examples of the commands available.
+```
+get foo
+"bar"
+get 1234
+(nil)
+set fizz buzz
+"OK"
+get fizz
+"buzz"
+set fizz bazz
+"OK"
+get fizz
+"bazz"
+get ae808cbc-f7e5-4a52-8187-aa8f5492308d ^
+(nil)
+set ae808cbc-f7e5-4a52-8187-aa8f5492308d {"firstName":"John","lastName":"Doe"}
+"OK"
+get ae808cbc-f7e5-4a52-8187-aa8f5492308d
+"{"firstName":"John","lastName":"Doe"}"
+```
