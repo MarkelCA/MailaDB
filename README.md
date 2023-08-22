@@ -61,8 +61,12 @@ telnet localhost 8080
 ```
 
 # Examples
-This is a telnet prompt with a bunch of examples of the commands available.
+This is a telnet prompt example with a bunch commands.
 ```
+➜  ~ telnet localhost 8080
+Trying 127.0.0.1...
+Connected to localhost.
+Escape character is '^]'.
 get foo
 "bar"
 get 1234
