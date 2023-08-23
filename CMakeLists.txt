@@ -12,5 +12,5 @@ add_executable(start
         src/utils.c
         src/storage.c
         src/socket.c
-        src/hashmap.c
+        src/hash_map.c
 )

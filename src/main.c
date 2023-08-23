@@ -50,8 +50,10 @@ int main() {
 
         free(tokens);
         free(result);
+        free(final_result);
         tokens = NULL;
         result = NULL;
+        final_result = NULL;
     }
 
     close_socket(socket);

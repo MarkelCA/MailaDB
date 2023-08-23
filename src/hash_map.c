@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "./hashmap.h"
+#include "./hash_map.h"
 
 
 unsigned int hash_function(const char *key) {
@@ -35,7 +35,7 @@ void insert_map(HashMap *map, const char *key, const char *value) {
     }
 }
 
-const char *get_value(HashMap *map, const char *key) {
+const char *get_hash_map_value(HashMap *map, const char *key) {
     unsigned int index = hash_function(key);
     Map *current = map->buckets[index];
 
@@ -62,8 +62,33 @@ void free_hash_map(HashMap *map) {
     }
 }
 
+void print_hash_map(HashMap *map) {
+    _print_hash_map(map, true);
+}
+
+void print_hash_map_keys(HashMap *map) {
+    _print_hash_map(map, false);
+}
+
+void _print_hash_map(HashMap *map, bool print_values) {
+    Map *current;
+    for (int i = 0; i < HASH_TABLE_SIZE; i++) {
+        current = map->buckets[i];
+
+        while (current != NULL) {
+            if(print_values == true) {
+                printf("%s -> %s\n", current->key, current->value);
+            } else {
+                printf("%s\n", current->key);
+            }
+            current = current->next;
+        }
+        
+    }
+
+}
+
 // int main() {
-//     // printf("%i", hash_function("a"));
 //     HashMap my_map;
 //     memset(&my_map, 0, sizeof(HashMap));
 //
@@ -71,11 +96,10 @@ void free_hash_map(HashMap *map) {
 //     insert_map(&my_map, "fizz", "buzz");
 //     insert_map(&my_map, "x", "y");
 //
-//     printf("foo: %s\n", get_value(&my_map, "foo"));
-//     printf("fizz: %s\n", get_value(&my_map, "fizz"));
-//     printf("x: %s\n", get_value(&my_map, "x"));
+//     insert_map(&my_map, "apple", "value1");
+//     insert_map(&my_map, "banana", "value3");
+//
+//     print_hash_map_keys(&my_map);
 //
 //     free_hash_map(&my_map);
-//
-//     // return 0;
 // }

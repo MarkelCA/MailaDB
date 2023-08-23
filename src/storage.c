@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stddef.h>
 #include <sys/types.h>
+#include "./hash_map.h"
 
 #define BUFFER_SIZE 4096
 #define DATABASE_PATH "/home/markel/estudio/databases/SillyDB/data/out.db"
@@ -110,6 +111,9 @@ char* list() {
     char* current_key_data  = NULL;
     char* current_val_data  = NULL;
 
+    HashMap keys_map;
+    memset(&keys_map, 0, sizeof(HashMap));
+
     // We iterate through all the file
     while (!feof(file)) {
         u_int8_t current_key_length = 0;
@@ -127,10 +131,18 @@ char* list() {
         fread(current_val_data, sizeof(char), current_val_lenght, file);
         current_val_data[current_val_lenght] = '\0'; // We add the null terminator to avoid storing junk bytes
         // If we find the key we store it along with the value
-        printf("-> %s\n", current_key_data);
+
+
+        if(get_hash_map_value(&keys_map, current_key_data) == NULL) {
+            insert_map(&keys_map, current_key_data, "true");
+
+        }
     }
     // We deallocate the temporal variables
     free(current_key_data);
+
+    print_hash_map_keys(&keys_map);
+    free_hash_map(&keys_map);
 
     // We check that the current value it's not the last one to avoid deallocating
     // the returned result pointer.
