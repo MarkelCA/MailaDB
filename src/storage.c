@@ -1,10 +1,11 @@
+#include <c++/11/bits/fs_fwd.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
 #include <stddef.h>
 #include <sys/types.h>
-#include "./hash_map.h"
+#include "./hashmap.h"
 
 #define BUFFER_SIZE 4096
 #define DATABASE_PATH "/home/markel/estudio/databases/SillyDB/data/out.db"
@@ -133,16 +134,16 @@ char* list() {
         // If we find the key we store it along with the value
 
 
-        if(get_hash_map_value(&keys_map, current_key_data) == NULL) {
-            insert_map(&keys_map, current_key_data, "true");
+        if(hashmap_get(&keys_map, current_key_data) == NULL) {
+            hashmap_insert(&keys_map, current_key_data, "true");
 
         }
     }
     // We deallocate the temporal variables
     free(current_key_data);
 
-    print_hash_map_keys(&keys_map);
-    free_hash_map(&keys_map);
+    char* all_keys = hashmap_get_keys(&keys_map);
+    hashmap_free(&keys_map);
 
     // We check that the current value it's not the last one to avoid deallocating
     // the returned result pointer.
@@ -157,7 +158,5 @@ char* list() {
 
     fclose(file);
 
-    return result;
-
-    return "";
+    return all_keys;
 }
