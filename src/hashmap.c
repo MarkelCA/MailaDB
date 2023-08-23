@@ -78,7 +78,7 @@ char* hashmap_get_keys(HashMap *map) {
         current_map = map->buckets[i];
 
         while (current_map != NULL) {
-            char* current_value = current_map->value;
+            char* current_value = current_map->key;
             lenght = strlen(result) + strlen(current_value);
             current_result = realloc(result,  sizeof(char) * lenght + 1); // +1 for the \n
 
