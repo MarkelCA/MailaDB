@@ -19,10 +19,9 @@ char* run_command(char* args[]) {
         result = (char*) calloc(strlen(del_str), sizeof(char));
         strcat(result, del_str);
     } else if (strcmp(input, "list") == 0) {
-        char* str_done = "(Printed on the server)";
-        list();
-        result = (char*) calloc(strlen(str_done), sizeof(char));
-        strcat(result, str_done);
+        char* str_list = list();
+        result = (char*) calloc(strlen(str_list), sizeof(char));
+        strcat(result, str_list);
     } else {
         char* command_not_valid = "Command not valid";
         result = (char*)calloc(strlen(command_not_valid), sizeof(char));

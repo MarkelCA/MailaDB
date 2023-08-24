@@ -73,7 +73,7 @@ char* hashmap_get_keys(HashMap *map) {
     uint lenght = 0;
     char* result;
     char* current_result;
-    result = (char*)malloc(sizeof(char) * 1);
+    result = (char*) calloc(sizeof(char), 1);
     for (int i = 0; i < HASH_TABLE_SIZE; i++) {
         current_map = map->buckets[i];
 

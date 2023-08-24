@@ -134,7 +134,7 @@ char* list() {
         // If we find the key we store it along with the value
 
 
-        if(hashmap_get(&keys_map, current_key_data) == NULL) {
+        if(hashmap_get(&keys_map, current_key_data) == NULL && strlen(current_key_data) > 0) {
             hashmap_insert(&keys_map, current_key_data, "true");
 
         }
