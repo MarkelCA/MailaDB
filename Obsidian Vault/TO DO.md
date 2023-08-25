@@ -6,7 +6,6 @@
 - [ ] cli tool like `mysql` instead of using `telnet`
 - [ ] Use a thread for each request
 - [ ] Implement a type system like Redis
-    - Currently the only way to use the database it's through a cli. This isn't very useful.
 - [ ] Add indexing.
     - Add an indexing algorithm. For example:
         - Byte-offset stored in memory for every key
