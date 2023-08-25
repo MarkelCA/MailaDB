@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
 #include "./hashmap.h"
 
 
 void _hashmap_print(HashMap *map, bool print_values);
 
-unsigned int hashmap_hash_function(const char *key) {
+unsigned int hashmap_hash_function(const char *key, uint size) {
     unsigned int hash = 0;
     while (*key) {
         hash = (hash << 5) + *key++;
     }
-    return hash % HASH_TABLE_SIZE;
+    return hash % size;
 }
 
-Map *hashmap_create(const char *key, const char *value) {
+Map *hashmap_create_map(const char *key, const char *value) {
     Map *kv = (Map *)malloc(sizeof(Map));
     kv->key = strdup(key);
     kv->value = strdup(value);
@@ -23,8 +24,8 @@ Map *hashmap_create(const char *key, const char *value) {
 }
 
 void hashmap_insert(HashMap *map, const char *key, const char *value) {
-    unsigned int index = hashmap_hash_function(key);
-    Map *kv = hashmap_create(key, value);
+    unsigned int index = hashmap_hash_function(key, map->size);
+    Map *kv = hashmap_create_map(key, value);
 
     if (map->buckets[index] == NULL) {
         map->buckets[index] = kv;
@@ -38,7 +39,7 @@ void hashmap_insert(HashMap *map, const char *key, const char *value) {
 }
 
 const char *hashmap_get(HashMap *map, const char *key) {
-    unsigned int index = hashmap_hash_function(key);
+    unsigned int index = hashmap_hash_function(key, map->size);
     Map *current = map->buckets[index];
 
     while (current != NULL) {
@@ -52,7 +53,7 @@ const char *hashmap_get(HashMap *map, const char *key) {
 }
 
 void hashmap_free(HashMap *map) {
-    for (int i = 0; i < HASH_TABLE_SIZE; i++) {
+    for (int i = 0; i < map->size; i++) {
         Map *current = map->buckets[i];
         while (current != NULL) {
             Map *temp = current;
@@ -74,7 +75,7 @@ char* hashmap_get_keys(HashMap *map) {
     char* result;
     char* current_result;
     result = (char*) calloc(sizeof(char), 1);
-    for (int i = 0; i < HASH_TABLE_SIZE; i++) {
+    for (int i = 0; i < map->size; i++) {
         current_map = map->buckets[i];
 
         while (current_map != NULL) {
@@ -99,7 +100,7 @@ void hashmap_print_keys(HashMap *map) {
 
 void _hashmap_print(HashMap *map, bool print_values) {
     Map *current;
-    for (int i = 0; i < HASH_TABLE_SIZE; i++) {
+    for (int i = 0; i < map->size; i++) {
         current = map->buckets[i];
 
         while (current != NULL) {
@@ -113,21 +114,32 @@ void _hashmap_print(HashMap *map, bool print_values) {
     }
 }
 
+HashMap* hashmap_create(uint size) {
+    HashMap *map = (HashMap *)malloc(sizeof(HashMap));
+    map->buckets = (Map **)calloc(size, sizeof(Map *));
+    map->size = size;
+    return map;
+}
+
 // int main() {
-//     HashMap my_map;
-//     memset(&my_map, 0, sizeof(HashMap));
+//     // HashMap my_map = {.buckets = NULL, .size = 100};
+//     HashMap* my_map = hashmap_create(100);
+//     // memset(&my_map, 0, sizeof(my_map));
 //
-//     hashmap_insert(&my_map, "foo", "bar");
-//     hashmap_insert(&my_map, "fizz", "buzz");
-//     hashmap_insert(&my_map, "x", "y");
+//     // HashMap* d = &my_map;
+//     printf("%d", my_map->size);
 //
-//     hashmap_insert(&my_map, "apple", "value1");
-//     hashmap_insert(&my_map, "banana", "value2");
+//     hashmap_insert(my_map, "foo", "bar");
+//     hashmap_insert(my_map, "fizz", "buzz");
+//     hashmap_insert(my_map, "x", "y");
 //
-//     // hashmap_print_keys(&my_map);
-//     // hashmap_print(&my_map);
+//     hashmap_insert(my_map, "apple", "value1");
+//     hashmap_insert(my_map, "banana", "value2");
 //
-//     printf("%s", hashmap_get_keys(&my_map));
+//     hashmap_print_keys(my_map);
+//     hashmap_print(my_map);
 //
-//     hashmap_free(&my_map);
+//     printf("%s", hashmap_get_keys(my_map));
+//
+//     hashmap_free(my_map);
 // }

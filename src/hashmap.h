@@ -2,8 +2,9 @@
 #define HASHMAP_H
 
 #include <stdbool.h>
+#include <sys/types.h>
 
-#define HASH_TABLE_SIZE 100
+// #define HASH_TABLE_SIZE 100
 
 typedef struct Map {
     char *key;
@@ -12,11 +13,13 @@ typedef struct Map {
 } Map;
 
 typedef struct {
-    Map *buckets[HASH_TABLE_SIZE];
+    Map **buckets;
+    uint size;
 } HashMap;
 
-unsigned int hashmap_hash_function(const char *key);
-Map *hashmap_create(const char *key, const char *value);
+HashMap* hashmap_create(uint size);
+unsigned int hashmap_hash_function(const char *key, uint size);
+Map *hashmap_create_map(const char *key, const char *value);
 void hashmap_insert(HashMap *map, const char *key, const char *value);
 const char *hashmap_get(HashMap *map, const char *key);
 void hashmap_free(HashMap *map);

@@ -112,8 +112,8 @@ char* list() {
     char* current_key_data  = NULL;
     char* current_val_data  = NULL;
 
-    HashMap keys_map;
-    memset(&keys_map, 0, sizeof(HashMap));
+    HashMap* keys_map = hashmap_create(100);
+    //memset(keys_map, 0, sizeof(HashMap));
 
     // We iterate through all the file
     while (!feof(file)) {
@@ -134,16 +134,16 @@ char* list() {
         // If we find the key we store it along with the value
 
 
-        if(hashmap_get(&keys_map, current_key_data) == NULL && strlen(current_key_data) > 0) {
-            hashmap_insert(&keys_map, current_key_data, "true");
+        if(hashmap_get(keys_map, current_key_data) == NULL && strlen(current_key_data) > 0) {
+            hashmap_insert(keys_map, current_key_data, "true");
 
         }
     }
     // We deallocate the temporal variables
     free(current_key_data);
 
-    char* all_keys = hashmap_get_keys(&keys_map);
-    hashmap_free(&keys_map);
+    char* all_keys = hashmap_get_keys(keys_map);
+    hashmap_free(keys_map);
 
     // We check that the current value it's not the last one to avoid deallocating
     // the returned result pointer.
