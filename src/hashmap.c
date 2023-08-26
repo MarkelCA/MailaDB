@@ -121,25 +121,3 @@ HashMap* hashmap_create(uint size) {
     return map;
 }
 
-// int main() {
-//     // HashMap my_map = {.buckets = NULL, .size = 100};
-//     HashMap* my_map = hashmap_create(100);
-//     // memset(&my_map, 0, sizeof(my_map));
-//
-//     // HashMap* d = &my_map;
-//     printf("%d", my_map->size);
-//
-//     hashmap_insert(my_map, "foo", "bar");
-//     hashmap_insert(my_map, "fizz", "buzz");
-//     hashmap_insert(my_map, "x", "y");
-//
-//     hashmap_insert(my_map, "apple", "value1");
-//     hashmap_insert(my_map, "banana", "value2");
-//
-//     hashmap_print_keys(my_map);
-//     hashmap_print(my_map);
-//
-//     printf("%s", hashmap_get_keys(my_map));
-//
-//     hashmap_free(my_map);
-// }

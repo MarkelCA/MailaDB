@@ -18,7 +18,7 @@ void client_handler(const int* p_client_socket) {
 
         if (bytes_read <= 0) {
             perror("Connection closed or error");
-            // break;
+            break;
         }
 
         // Delete the \r char at the end

@@ -23,4 +23,4 @@
 - [X] `list` command
 - [X] Optimize stored space. 
     - Is always stored 4 bytes for the key lenght, even if there aren't used. [[optimizations/Binary Encoding|Binary Encoding]]]
-- [X] Add a network adapter.
+- [X] Add a network adapter. (Run through server connection instead of local cli)
