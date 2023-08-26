@@ -4,18 +4,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 int init_socket() {
 
     // Create a socket
-    int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-    if (serverSocket == -1) {
+    int server_socket = socket(AF_INET, SOCK_STREAM, 0);
+    if (server_socket == -1) {
         perror("Socket creation failed");
         exit(EXIT_FAILURE);
     }
 
     // Set the SO_REUSEADDR socket option
     int reuse = 1;
-    if (setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(int)) == -1) {
+    if (setsockopt(server_socket, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(int)) == -1) {
         perror("Setting SO_REUSEADDR failed");
         exit(EXIT_FAILURE);
     }
@@ -26,33 +27,20 @@ int init_socket() {
     serverAddr.sin_port = htons(8080);       // Port number
 
     // Bind the socket to the address
-    if (bind(serverSocket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) == -1) {
+    if (bind(server_socket, (struct sockaddr *)&serverAddr, sizeof(serverAddr)) == -1) {
         perror("Binding failed");
         exit(EXIT_FAILURE);
     }
 
     // Listen for incoming connections
-    if (listen(serverSocket, 5) == -1) {
+    if (listen(server_socket, 5) == -1) {
         perror("Listening failed");
         exit(EXIT_FAILURE);
     }
 
     printf("Server listening on port 8080...\n");
 
-    // Accept a connection
-    int socket;
-    struct sockaddr_in client_addr;
-    socklen_t addr_len = sizeof(client_addr);
-
-    socket = accept(serverSocket, (struct sockaddr *)&client_addr, &addr_len);
-    if (socket == -1) {
-        perror("Accepting connection failed");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("Connection established with client.\n");
-
-    return socket;
+    return server_socket;
 }
 
 ssize_t read_message(int socket, char* buffer, size_t size, int flags) {

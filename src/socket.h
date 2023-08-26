@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <sys/types.h>
+#include <arpa/inet.h>
 
 int init_socket();
 ssize_t read_message(int socket, char* buffer, size_t size, int flags);

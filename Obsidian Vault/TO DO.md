@@ -4,7 +4,6 @@
     - [ ] Fix the quotes in the list function
 - [ ] Delete function (tombstones)
 - [ ] cli tool like `mysql` instead of using `telnet`
-- [ ] Use a thread for each request
 - [ ] Implement a type system like Redis
 - [ ] Add indexing.
     - Add an indexing algorithm. For example:
@@ -20,6 +19,7 @@
 ---
 # Done
 
+- [X] Use a thread for each client
 - [X] `list` command
 - [X] Optimize stored space. 
     - Is always stored 4 bytes for the key lenght, even if there aren't used. [[optimizations/Binary Encoding|Binary Encoding]]]
