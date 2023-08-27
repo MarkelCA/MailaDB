@@ -79,10 +79,18 @@ set fizz bazz
 "OK"
 get fizz
 "bazz"
-get ae808cbc-f7e5-4a52-8187-aa8f5492308d ^
+get ae808cbc-f7e5-4a52-8187-aa8f5492308d
 (nil)
 set ae808cbc-f7e5-4a52-8187-aa8f5492308d {"firstName":"John","lastName":"Doe"}
 "OK"
 get ae808cbc-f7e5-4a52-8187-aa8f5492308d
 "{"firstName":"John","lastName":"Doe"}"
+list
+"foo
+x
+ae808cbc-f7e5-4a52-8187-aa8f5492308d
+fizz
+a
+b
+"
 ```
