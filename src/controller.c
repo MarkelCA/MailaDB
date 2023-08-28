@@ -30,3 +30,9 @@ char* run_command(char* args[]) {
     return result;
 }
 
+/**
+ * Creates the database file if it doesn't exist.
+ */
+void controller_create_database() {
+    create_database();
+}

@@ -49,6 +49,9 @@ mkdir cmake-build-debug
 
 2. Run the CMakeLists.txt file from the IDE using the `Debug CMake` button.
 
+# Config
+
+
 # Run
 1. Start the server
 ```bash

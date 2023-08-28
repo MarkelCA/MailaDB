@@ -10,7 +10,6 @@ void client_handler(const int* p_client_socket) {
     // Receive and send messages
     int client_socket = *p_client_socket;
     char buffer[1024]; // Has to change given the maximum value lenght (65KB)
-
     while(1) {
         memset(&buffer, 0, sizeof(buffer));
 
@@ -60,6 +59,7 @@ void client_handler(const int* p_client_socket) {
 }
 
 int main() {
+    controller_create_database();
     int server_socket = init_socket();
     while (1) {
         // Accept a connection

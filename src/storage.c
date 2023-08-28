@@ -4,12 +4,31 @@
 #include <assert.h>
 #include <string.h>
 #include <stddef.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include "./hashmap.h"
 
 #define BUFFER_SIZE 4096
-#define DATABASE_PATH "/home/markel/estudio/databases/SillyDB/data/out.db"
 
+#ifndef DATABASE_PATH
+    #define DATABASE_PATH "~/.silly.db"
+#endif /* ifndef DATABASE_PATH */
+
+/**
+ * Creates the database file if it doesn't exist.
+ */
+void create_database() {
+    printf("%s", DATABASE_PATH);
+    // if (access(DATABASE_PATH, F_OK) != 0) {
+    //     printf("dont exist, %s", DATABASE_PATH);
+    //     FILE* fptr = fopen(DATABASE_PATH, "w");
+    //     fclose(fptr);
+    // }
+}
+
+/**
+ * Gets a key from the database binary file.
+ */
 char* get(char* key) {
     assert(key != NULL);
     FILE *file = NULL;
@@ -17,7 +36,7 @@ char* get(char* key) {
     memset(&line,0,sizeof (line));
     char* result = NULL;
 
-    file = fopen(DATABASE_PATH, "r");
+    file = fopen(DATABASE_PATH, "r"); // DATABASE_PATH defined in the CMakeLists.txt and injected at bulid time.
     if (file == NULL) {
         perror("Failed to open the file.");
         return result;
@@ -69,6 +88,9 @@ char* get(char* key) {
     return result;
 }
 
+/**
+ * Sets a key in the database binary file.
+ */
 void set(const char* key, const char* value) {
     FILE *file = fopen(DATABASE_PATH, "ab+");
     assert(key && value);

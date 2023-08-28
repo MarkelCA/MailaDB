@@ -1,15 +1,16 @@
 # To do
+- [ ] Add indexing.
+    - Add an indexing algorithm. For example:
+        - In memory hash-index to keep byte offsets
+        - LSM-Tree
+        - B+ Tree
+    - To start the Byte-offset option will be used
+- [ ] Delete function (tombstones)
 - [ ] Format the command output and use the quotes properly
     - [ ] change the `Command not valid` output to remove quotes
     - [ ] Fix the quotes in the list function
-- [ ] Delete function (tombstones)
 - [ ] cli tool like `mysql` instead of using `telnet`
 - [ ] Implement a type system like Redis
-- [ ] Add indexing.
-    - Add an indexing algorithm. For example:
-        - Byte-offset stored in memory for every key
-        - LSM-Tree
-        - B+ Tree
 - [ ] Add log compaction
 - [ ] Add users & permissions
 - [ ] Might be interesting to use a documentation generator as [Docusaurus](https://docusaurus.io/)
@@ -19,6 +20,7 @@
 ---
 # Done
 
+- [X] Make the storage file configurable
 - [X] Use a thread for each client
 - [X] `list` command
 - [X] Optimize stored space. 
